@@ -1,0 +1,52 @@
+import speech_recognition as sr
+import pyttsx3
+
+# Initialize text-to-speech engine
+engine = pyttsx3.init()
+
+# Initialize speech recognition engine
+r = sr.Recognizer()
+
+# Define a function to get text input from the user
+def get_text_input():
+    return input("You: ")
+
+# Define a function to get speech input from the user
+def get_speech_input():
+    with sr.Microphone() as source:
+        print("Speak:")
+        audio = r.listen(source)
+    try:
+        text = r.recognize_google(audio)
+        print("You said:", text)
+        return text
+    except:
+        return ""
+
+# Define a function to output text to the user
+def output_text(text):
+    print("Bot:", text)
+    engine.say(text)
+    engine.runAndWait()
+
+# Define a function to output speech to the user
+def output_speech(text):
+    engine.say(text)
+    engine.runAndWait()
+
+# Define a main function to handle the chatbot logic
+def main():
+    print("Hi! I'm a chatbot. How can I help you?")
+    while True:
+        # Get input from the user (either text or speech)
+        user_input = get_text_input()
+        if not user_input:
+            user_input = get_speech_input()
+        
+        # Process the user input and generate a response
+        # For example, you could use a machine learning model or a rule-based system here
+        response = "I'm sorry, I don't understand."
+        
+        # Output the response to the user (either text or speech)
+        output_text(response)
+        #output_speech(response)  # Uncomment this line to output speech instead of text
